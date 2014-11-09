@@ -35,22 +35,26 @@ def get_all_links(page):
     return links
         
 def crawl_web(seed):
-    '''crawl_web(seed) --> index
+    '''crawl_web(seed) --> index, graph
     
-    Takes the seed page and creates an index.
+    Takes the seed page and creates an index
+    and graph.
     
     '''
     toCrawl = [seed]
     crawled = []
     index = {}
+    graph = {} # <url>:[list of pages it links to]
     while toCrawl:
         page = toCrawl.pop() # Depth First Search
         if page not in crawled:
             content = get_page(page)
             add_page_to_index(index, page, content)
-            union(toCrawl,get_all_links(content))
+            outlinks = get_all_links(content)
+            graph[page] = outlinks
+            union(toCrawl,outlinks)
             crawled.append(page)
-    return index
+    return index, graph
 
 def add_to_index(index, keyword, url): # --> Done
     if keyword in index:
