@@ -1,6 +1,6 @@
 # WebCrawler from Udacity CS101
 
-index = [] 
+#index = [] 
 
 def get_page(url):
     try:
@@ -80,8 +80,21 @@ def add_page_to_index(index, url, content): # --> Done!
 #print index
 #print look_up(index, 'is')
         
-# Test --> Fail
+# Test --> Pass!
 #seed = 'http://www.udacity.com/cs101x/index.html'
-#print crawl_web(seed)
+#index = crawl_web(seed)
 #print index
 #print look_up(index, 'good')
+
+def hash_string(keyword, buckets): # --> Done
+    hash = 0
+    for char in keyword:
+        hash = (hash + ord(char)) % buckets # reduces cost
+    return hash 
+    
+# Test --> Pass
+#print hash_string('a',12)
+#print hash_string('b',12)
+#print hash_string('a',13)
+#print hash_string('au',12)
+#print hash_string('udacity',12)
