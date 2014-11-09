@@ -126,7 +126,7 @@ def make_hashtable(nbuckets):
     return hashtable
     
 def hashtable_get_bucket(hashtable, keyword):
-    '''hashtable(list, str) --> return list
+    '''hashtable(hashtable, keyword) --> return list
     
     Takes two inputs and outputs the bucket where the
     keyword could occur.
@@ -137,7 +137,7 @@ def hashtable_get_bucket(hashtable, keyword):
     return hashtable[hash_string(keyword, len(hashtable))]
     
 def hashtable_add(hashtable, keyword, value):
-    '''hashtable_add_bucket(list, str, ) --> return list
+    '''hashtable_add_bucket(hashtable, keyword, value) --> return list
     
     Adds the keyword to the hashtable (in the correct bucket),
     with the associated value.
@@ -145,7 +145,7 @@ def hashtable_add(hashtable, keyword, value):
     >>>hashtable_add(table, 'Bill', 17)
     [[], [], [['Bill', 17]], [], []]
     '''
-    return hashtable[hash_string(keyword, len(hashtable))].append([keyword, value])
+    hashtable_get_bucket(hashtable,keyword).append([keyword, value])
     
 # Test --> Pass
 #table = make_hashtable(5)
@@ -158,3 +158,22 @@ def hashtable_add(hashtable, keyword, value):
 #hashtable_add(table,'Rochelle', 4)
 #hashtable_add(table,'Zoe', 14)
 #print table
+
+def hashtable_lookup(hashtable, keyword):
+    '''hashtable_lookup(hashtable, keyword) --> value
+    
+    Takes two inputs, a hashtable and a key (string),
+    and outputs the value associated with the key.
+    
+    '''
+    for entry in hashtable_get_bucket(hashtable, keyword):
+        if entry[0] == keyword:
+            return entry[1]
+    return None
+    
+# Test --> Pass
+#table = [[['Ellis', 11], ['Francis', 13]], [], [['Bill', 17], ['Zoe', 14]],
+#[['Coach', 4]], [['Louis', 29], ['Nick', 2], ['Rochelle', 4]]]
+#print hashtable_lookup(table, 'Francis')
+#print hashtable_lookup(table, 'Louis')
+#print hashtable_lookup(table, 'Zoe')
