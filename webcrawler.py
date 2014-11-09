@@ -177,3 +177,28 @@ def hashtable_lookup(hashtable, keyword):
 #print hashtable_lookup(table, 'Francis')
 #print hashtable_lookup(table, 'Louis')
 #print hashtable_lookup(table, 'Zoe')
+
+def hashtable_update(hashtable, keyword, value):
+    '''hashtable_update(hashtable, keyword, value) --> list
+    
+    Updates the value associate with the keyword.
+    If the keyword is already in the table, change the 
+    value to the new value. Otherwise, add a new entry 
+    for the key and value.
+    
+    '''
+    # think of bucket = hashtable_get_bucket(hashtable, keyword)
+    for entry in hashtable_get_bucket(hashtable, keyword):
+        if entry[0] == keyword:
+            entry[1] = value
+            return hashtable
+    hashtable_get_bucket(hashtable, keyword).append([keyword, value])
+    return hashtable
+
+# Test --> Pass        
+#table = [[['Ellis', 11], ['Francis', 13]], [], [['Bill', 17], ['Zoe', 14]],
+#[['Coach', 4]], [['Louis', 29], ['Nick', 2], ['Rochelle', 4]]]
+#hashtable_update(table, 'Bill', 42)
+#hashtable_update(table, 'Rochelle', 94)
+#hashtable_update(table, 'Zed', 68)
+#print table
