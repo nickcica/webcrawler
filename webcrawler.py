@@ -35,9 +35,14 @@ def get_all_links(page):
     return links
         
 def crawl_web(seed):
+    '''crawl_web(seed) --> index
+    
+    Takes the seed page and creates an index.
+    
+    '''
     toCrawl = [seed]
     crawled = []
-    index = []
+    index = {}
     while toCrawl:
         page = toCrawl.pop() # Depth First Search
         if page not in crawled:
@@ -48,14 +53,11 @@ def crawl_web(seed):
     return index
 
 def add_to_index(index, keyword, url): # --> Done
-    for entry in index:
-        if entry[0] == keyword: 
-            # prevent duplicate url listings
-            if not url in entry[1]:
-                entry[1].append(url)
-                return
-    # not found, add new keyword to index
-    index.append([keyword,[url]])
+    if keyword in index:
+        index[keyword].append(url)
+    else:
+        # not found, add new keyword to index
+        index[keyword] = [url]
     
 # Test --> Pass        
 #add_to_index(index, 'udacity', 'http://www.udacity.com')
@@ -64,15 +66,18 @@ def add_to_index(index, keyword, url): # --> Done
 #print index
 
 def look_up(index, keyword): # --> Done
-    for entry in index:
-        if entry[0] == keyword:
-            return entry[1]
-    return []
+    if keyword in index:
+        return index[keyword]
+    return None
 
 def add_page_to_index(index, url, content): # --> Done!
-    keywords = content.split()
-    for keyword in keywords:
-        add_to_index(index, keyword, url)
+    '''add_page_to_index(index, url, content)
+    
+    Adds page to index.
+    '''
+    words = content.split()
+    for word in words:
+        add_to_index(index, word, url)
         
 # Test --> Pass
 #add_page_to_index(index, 'fake.test', "This is a test")
