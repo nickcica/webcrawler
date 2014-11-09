@@ -211,3 +211,26 @@ def hashtable_update(hashtable, keyword, value):
 #hashtable_update(table, 'Rochelle', 94)
 #hashtable_update(table, 'Zed', 68)
 #print table
+
+def compute_ranks(graph):
+    d = 0.8 # damping factor
+    numLoops = 10
+    ranks = {}
+    nPages = len(graph)
+    for page in graph:
+        ranks[page] = 1.0 / nPages
+    for i in range(0, numLoops):
+        newRanks = {}
+        for page in graph:
+            newRank = (1 - d) / nPages
+            for node in graph:
+                if page in graph[node]:
+                    newRank = newRank + (d * ranks[node])/(len(graph[node])) # outlinks
+            newRanks[page] = newRank
+        ranks = newRanks
+    return ranks
+    
+# Test
+index, graph = crawl_web('https://www.udacity.com/cs101x/urank/index.html')
+ranks = compute_ranks(graph)
+print ranks
