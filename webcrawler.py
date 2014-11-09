@@ -124,3 +124,14 @@ def make_hashtable(nbuckets):
     for _ in range(0, nbuckets):
         hashtable.append([])
     return hashtable
+    
+def hashtable_get_bucket(hashtable, keyword):
+    '''hashtable(list, str) --> return index
+    
+    Takes two inputs and outputs the bucket where the
+    keyword could occur.
+    
+    >>>hashtable_get_bucket()
+    
+    '''
+    return hashtable[hash_string(keyword, len(hashtable))]
