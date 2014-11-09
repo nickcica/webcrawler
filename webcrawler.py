@@ -90,7 +90,26 @@ def hash_string(keyword, buckets): # --> Done
     hash = 0
     for char in keyword:
         hash = (hash + ord(char)) % buckets # reduces cost
-    return hash 
+    return hash
+    
+def make_hashtable(nbuckets):
+    '''make_hashtable(int) --> return list
+    
+    Takes an integer and creates an x amount of list.
+    These will implemented in our hash table called
+    buckets
+    
+    >>> make_hashtable(5)
+    [[],[],[],[],[]]
+    '''
+    # example one line solution:
+    # return [[] for i in xrange(nbuckets)]
+    i = 0
+    hashtable = []
+    while nbuckets > i:
+        hashtable.append([])
+        i += 1
+    return hashtable
     
 # Test --> Pass
 #print hash_string('a',12)
