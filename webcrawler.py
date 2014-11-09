@@ -231,6 +231,23 @@ def compute_ranks(graph):
     return ranks
     
 # Test
-index, graph = crawl_web('https://www.udacity.com/cs101x/urank/index.html')
-ranks = compute_ranks(graph)
-print ranks
+#index, graph = crawl_web('https://www.udacity.com/cs101x/urank/index.html')
+#ranks = compute_ranks(graph)
+#print ranks
+
+def lucky_search(index, ranks, keyword):
+    '''
+    that takes as input an index, a ranks dictionary 
+    (the result of compute_ranks), and a keyword, and 
+    returns the one URL most likely to be the best site 
+    for that keyword. If the keyword does not appear in 
+    the index, lucky_search should return None.
+    '''
+    pages = look_up(index, keyword)
+    if not pages:
+        return None
+    best_page = pages[0]
+    for candidate in pages:
+        if ranks[candidate] > ranks[best_page]:
+            best_page = candidate
+    return best_page
