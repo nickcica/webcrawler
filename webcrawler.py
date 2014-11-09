@@ -87,10 +87,26 @@ def add_page_to_index(index, url, content): # --> Done!
 #print look_up(index, 'good')
 
 def hash_string(keyword, buckets): # --> Done
+    '''hash_string(str, int) --> returns int
+    
+    Takes a str and int and converts each character int the str 
+    into an int, then takes a modulous of that int by the input int.
+    Returns a hash value.
+    
+    >>> hash_string('test', 12)
+    4
+    '''
     hash = 0
     for char in keyword:
         hash = (hash + ord(char)) % buckets # reduces cost
     return hash
+    
+# Test --> Pass
+#print hash_string('a',12)
+#print hash_string('b',12)
+#print hash_string('a',13)
+#print hash_string('au',12)
+#print hash_string('udacity',12)
     
 def make_hashtable(nbuckets):
     '''make_hashtable(int) --> return list
@@ -104,16 +120,7 @@ def make_hashtable(nbuckets):
     '''
     # example one line solution:
     # return [[] for i in xrange(nbuckets)]
-    i = 0
     hashtable = []
-    while nbuckets > i:
+    for _ in range(0, nbuckets):
         hashtable.append([])
-        i += 1
     return hashtable
-    
-# Test --> Pass
-#print hash_string('a',12)
-#print hash_string('b',12)
-#print hash_string('a',13)
-#print hash_string('au',12)
-#print hash_string('udacity',12)
